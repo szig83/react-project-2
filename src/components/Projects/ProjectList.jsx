@@ -1,6 +1,6 @@
 import ProjectItem from './ProjectItem'
 
-export default function ProjectList({ projects, onDetails }) {
+export default function ProjectList({ projects, onSelectProject }) {
 	if (projects.length === 0) {
 		return <div>Nincs még project felvéve</div>
 	}
@@ -10,7 +10,12 @@ export default function ProjectList({ projects, onDetails }) {
 			<div className="project-list">
 				{projects.map((project, i) => {
 					return (
-						<ProjectItem index={i + 1} project={project} key={project.id} onDetails={onDetails} />
+						<ProjectItem
+							index={i + 1}
+							project={project}
+							key={project.id}
+							onSelectProject={onSelectProject}
+						/>
 					)
 				})}
 			</div>

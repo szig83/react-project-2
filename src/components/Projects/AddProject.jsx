@@ -25,7 +25,7 @@ export default function AddProject({ onClose, onAddProject }) {
 	}
 
 	return (
-		<Modal title="Új project hozzáadása" onClose={onClose}>
+		<Modal title="Új project hozzáadása" onClose={onClose} isBackdropClose={false}>
 			<form onSubmit={handleSubmit}>
 				<label>
 					<div>Project megnevezés:</div>
@@ -37,11 +37,11 @@ export default function AddProject({ onClose, onAddProject }) {
 				</label>
 				<label>
 					<div>Project leírás:</div>
-					<input
-						name="description"
+					<textarea
 						value={project.description}
+						name="description"
 						onChange={(e) => setProject((p) => ({ ...p, [e.target.name]: e.target.value }))}
-					/>
+					></textarea>
 				</label>
 				<label>
 					<div>Project indulás:</div>

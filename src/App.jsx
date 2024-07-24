@@ -35,6 +35,7 @@ function App() {
 	const [showAddProject, setShowAddProject] = useState(false)
 	const [projects, setProjects] = useState([])
 	const [showProjectDetails, setShowProjectDetails] = useState(false)
+	const [selectedProject, setSelectedProject] = useState(null)
 
 	function handleShowAddProject() {
 		setShowAddProject((show) => !show)
@@ -46,9 +47,9 @@ function App() {
 		setShowAddProject(false)
 	}
 
-	function handleShowProjectDetails(id) {
+	function handleSetSelectedProject(id) {
 		console.log(id)
-		setShowProjectDetails((show) => !show)
+		setSelectedProject(id)
 	}
 
 	return (
@@ -61,11 +62,11 @@ function App() {
 			<ProjectList
 				projects={projects}
 				onAddProject={handleAddProject}
-				onDetails={handleShowProjectDetails}
+				onSelectProject={handleSetSelectedProject}
 			/>
-			{showProjectDetails && (
-				<Modal title="Project részletek" onClose={handleShowProjectDetails}>
-					<ProjectDetails />
+			{selectedProject && (
+				<Modal title="Project részletek" onClose={() => handleSetSelectedProject(null)}>
+					<ProjectDetails projects={projects} selectedProject={selectedProject} />
 				</Modal>
 			)}
 		</>
