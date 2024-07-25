@@ -5,36 +5,36 @@ import ProjectDetails from './components/Projects/ProjectDetails'
 import Button from './components/Button'
 import Modal from './components/Modal'
 
-// const InitProjects = [
-// 	{
-// 		id: 1,
-// 		title: 'Project 1',
-// 		description: 'Valami project leírás kerül ide',
-// 		start: '2024-07-01',
-// 		participants: [],
-// 	},
-// 	{
-// 		id: 2,
-// 		title: 'Project 2',
-// 		description: 'Akármi project leírás lesz itt',
-// 		start: '2024-08-12',
-// 		participants: [],
-// 	},
-// 	{
-// 		id: 3,
-// 		title: 'Project 3',
-// 		description: 'Ez lesz a leírása a projectnem',
-// 		start: '2024-06-17',
-// 		participants: [],
-// 	},
-// ]
+const InitProjects = [
+	{
+		id: 1,
+		title: 'Project 1',
+		description: 'Valami project leírás kerül ide',
+		start: '2024-07-01',
+		participants: [],
+	},
+	{
+		id: 2,
+		title: 'Project 2',
+		description: 'Akármi project leírás lesz itt',
+		start: '2024-08-12',
+		participants: [],
+	},
+	{
+		id: 3,
+		title: 'Project 3',
+		description: 'Ez lesz a leírása a projectnem',
+		start: '2024-06-17',
+		participants: [],
+	},
+]
 
 function App() {
 	console.log('App component')
 
 	const [showAddProject, setShowAddProject] = useState(false)
-	const [projects, setProjects] = useState([])
-	const [showProjectDetails, setShowProjectDetails] = useState(false)
+	const [projects, setProjects] = useState(InitProjects)
+
 	const [selectedProject, setSelectedProject] = useState(null)
 
 	function handleShowAddProject() {
@@ -52,6 +52,21 @@ function App() {
 		setSelectedProject(id)
 	}
 
+	function handleAddParticipant(participant) {
+		console.log(participant)
+		setProjects((p) =>
+			p.map((project) => {
+				if (project.id === selectedProject) {
+					return {
+						...project,
+						participants: [...project.participants, participant],
+					}
+				}
+				return project
+			}),
+		)
+	}
+
 	return (
 		<>
 			{showAddProject && (
@@ -66,7 +81,11 @@ function App() {
 			/>
 			{selectedProject && (
 				<Modal title="Project részletek" onClose={() => handleSetSelectedProject(null)}>
-					<ProjectDetails projects={projects} selectedProject={selectedProject} />
+					<ProjectDetails
+						projects={projects}
+						selectedProject={selectedProject}
+						onAddParticipant={handleAddParticipant}
+					/>
 				</Modal>
 			)}
 		</>
